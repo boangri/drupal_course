@@ -15,7 +15,6 @@ composer.lock
 core/
 example.gitignore
 index.php
-modules/
 profiles/
 robots.txt
 sites/
@@ -23,3 +22,4 @@ themes/
 update.php
 vendor/
 web.config
+modules/README.txt
