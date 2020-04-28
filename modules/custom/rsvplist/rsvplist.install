@@ -29,6 +29,12 @@ function rsvplist_schema() {
         'length' => 64,
         'default' => '',
       ],
+      'created' => [
+        'type' => 'int',
+        'not null' => true,
+        'default' => 0,
+        'description' => 'Timestamp for when rsvp was created',
+      ],
     ],
     'primary key' => ['id'],
     'indexes' => [
