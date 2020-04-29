@@ -1,46 +1,44 @@
 <?php
 /**
  * @file
- * contains Drupal\rsvplist\Plugin\Block\RSVPBlock
+ * Contains \Drupal\rsvplist\Plugin\Block\RSVPBlock
  */
 namespace Drupal\rsvplist\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
-use Drupal\node\Entity\Node;
+
 
 /**
- * Class RSVPBlock
+ * Provides a 'RSVP' List Block
+ *
  * @Block(
  *   id = "rsvp_block",
  *   admin_label = @Translation("RSVP Block"),
- *   )
+ *   category = @Translation("Blocks")
+ * )
  */
-class RSVPBlock extends BlockBase
-{
+class RSVPBlock extends BlockBase {
+
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
-  public function build()
-  {
-    return \Drupal::formBuilder()->getForm(\Drupal\rsvpform\Form\RSVPForm::class);
+  public function build() {
+    return \Drupal::formBuilder()->getForm('Drupal\rsvplist\Form\RSVPForm');
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
-  public function blockAccess(AccountInterface $account)
-  {
-    /** @var Node $node */
+  public function blockAccess(AccountInterface $account) {
+    /** @var \Drupal\node\Entity\Node $node */
     $node = \Drupal::routeMatch()->getParameter('node');
-    $nid = null;
-    if ($node) {
-      $nid = $node->nid->value;
-    }
-    if (is_numeric($nid)) {
+    $nid = $node->nid->value;
+    if(is_numeric($nid)) {
       return AccessResult::allowedIfHasPermission($account, 'view rsvplist');
     }
     return AccessResult::forbidden();
   }
+
 }
