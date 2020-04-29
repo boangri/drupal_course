@@ -29,7 +29,7 @@ class RSVPForm extends FormBase
   public function buildForm(array $form, FormStateInterface $form_state)
   {
     $node = \Drupal::routeMatch()->getParameter('node');
-    $nid = $node->nid->value;
+    $nid = $node ? $node->nid->value : 0;
     $form['email'] = [
       '#title' => t('Email Address'),
       '#type' => 'textfield',
@@ -56,7 +56,7 @@ class RSVPForm extends FormBase
   {
     $value = $form_state->getValue('email');
     if (!\Drupal::service('email.validator')->isValid($value)) {
-      $form_state->setErrorByName('email', t('The email address %mail is not valid', ['%email' => $value]));
+      $form_state->setErrorByName('email', t('The email address %mail is not valid', ['%mail' => $value]));
     }
   }
 
